@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.7.0'
+    }
+}
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://jraf.org/static/maven/2'
+    }
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 19
+    }
+}
+
+sourceSets {
+    unitTest {
+        java.srcDir file('src/test/java')
+        resources.srcDir file('src/test/res')
+    }
+}
+
+dependencies {
+	compile 'com.android.support:appcompat-v7:19.0.1'
+    compile 'com.googlecode.libphonenumber:libphonenumber:5.9'
+    compile 'org.jraf:android-switch-backport:1.2'
+
+    unitTestCompile files("$project.buildDir/classes/release")
+    unitTestCompile 'junit:junit:4.11'
+    unitTestCompile 'com.google.android:android:4.1.1.4'
+    unitTestCompile 'org.mockito:mockito-all:1.9.5'
+    unitTestCompile 'com.googlecode.libphonenumber:libphonenumber:5.9'
+
+}
+
+task unitTest(type:Test, dependsOn: assemble) {
+    testClassesDir = project.sourceSets.unitTest.output.classesDir
+    classpath = project.sourceSets.unitTest.runtimeClasspath
+}
+check.dependsOn unitTest

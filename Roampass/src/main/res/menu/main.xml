@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:roampass="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_switch"
+        android:title="@string/switch_title"
+        roampass:actionLayout="@layout/switcher"
+        roampass:showAsAction="always"/>
+</menu>
