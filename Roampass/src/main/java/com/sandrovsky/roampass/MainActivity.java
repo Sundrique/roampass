@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.jraf.android.backport.switchwidget.Switch;
 
@@ -18,6 +19,9 @@ import org.jraf.android.backport.switchwidget.Switch;
  * @author asandrovsky@gmail.com
  */
 public class MainActivity extends ActionBarActivity {
+
+    private Settings settings;
+    private TextView help;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +33,13 @@ public class MainActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        settings = new Settings(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-
-        final Settings settings = new Settings(this);
 
         MenuItem switchItem = menu.findItem(R.id.action_switch);
         Switch switcher = (Switch) ((RelativeLayout) MenuItemCompat.getActionView(switchItem)).getChildAt(0);
@@ -49,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     settings.off();
                 }
+                updateHelp();
             }
         });
 
@@ -58,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    private class PlaceholderFragment extends Fragment {
 
         public PlaceholderFragment() {
         }
@@ -67,8 +70,20 @@ public class MainActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            help = (TextView) rootView.findViewById(R.id.help);
+
+            updateHelp();
+
             return rootView;
         }
     }
 
+    private void updateHelp() {
+        if (settings.isOn()) {
+            help.setText(R.string.description_on);
+        } else {
+            help.setText(R.string.description_off);
+        }
+    }
 }
