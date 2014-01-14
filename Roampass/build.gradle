@@ -8,6 +8,8 @@ buildscript {
 }
 apply plugin: 'android'
 
+apply from: 'signing.gradle'
+
 repositories {
     mavenCentral()
     maven {
@@ -33,7 +35,7 @@ sourceSets {
 }
 
 dependencies {
-	compile 'com.android.support:appcompat-v7:19.0.1'
+    compile 'com.android.support:appcompat-v7:19.0.1'
     compile 'com.googlecode.libphonenumber:libphonenumber:5.9'
     compile 'org.jraf:android-switch-backport:1.2'
 
@@ -45,7 +47,7 @@ dependencies {
 
 }
 
-task unitTest(type:Test, dependsOn: assemble) {
+task unitTest(type: Test, dependsOn: assemble) {
     testClassesDir = project.sourceSets.unitTest.output.classesDir
     classpath = project.sourceSets.unitTest.runtimeClasspath
 }

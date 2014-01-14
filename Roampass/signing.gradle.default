@@ -1,0 +1,16 @@
+android {
+    signingConfigs {
+        release {
+            storeFile file("sandrovsky.jks")
+            storePassword "**********"
+            keyAlias "roampass"
+            keyPassword "**********"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}
