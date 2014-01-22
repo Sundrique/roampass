@@ -19,11 +19,20 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.0"
+    buildToolsVersion '19.0.0'
 
     defaultConfig {
         minSdkVersion 7
         targetSdkVersion 19
+    }
+
+    productFlavors {
+        full {
+
+        }
+        trial {
+            packageName 'com.sandrovsky.roampass.trial'
+        }
     }
 }
 
