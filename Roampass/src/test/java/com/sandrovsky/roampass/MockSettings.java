@@ -2,8 +2,6 @@ package com.sandrovsky.roampass;
 
 import android.content.Context;
 
-import com.sandrovsky.roampass.Settings;
-
 /**
  * @author asandrovsky@gmail.com
  */

@@ -31,6 +31,7 @@ android {
 
         }
         trial {
+            minSdkVersion 9
             packageName 'com.sandrovsky.roampass.trial'
         }
     }
@@ -48,7 +49,7 @@ dependencies {
     compile 'com.googlecode.libphonenumber:libphonenumber:5.9'
     compile 'org.jraf:android-switch-backport:1.2'
 
-    unitTestCompile files("$project.buildDir/classes/release")
+    unitTestCompile files("$project.buildDir/classes/full/release")
     unitTestCompile 'junit:junit:4.11'
     unitTestCompile 'com.google.android:android:4.1.1.4'
     unitTestCompile 'org.mockito:mockito-all:1.9.5'

@@ -22,7 +22,9 @@ public class CallReceiver extends BroadcastReceiver {
 
         Settings settings = new Settings(context);
 
-        CallProcessor callProcessor = new CallProcessor(settings, operator);
+        Trial trial = new Trial(context);
+
+        CallProcessor callProcessor = new CallProcessor(settings, operator, trial);
 
         setResultData(callProcessor.process(number));
     }

@@ -3,6 +3,8 @@ package com.sandrovsky.roampass;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
+import com.sandrovsky.roampass.Trial;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,9 +31,11 @@ public class CallProcessorTest {
 
         operator = new MockOperator(telephonyManager, templatesList);
 
-        settings = new MockSettings(mock(Context.class));
+        Context context = mock(Context.class);
 
-        callProcessor = new CallProcessor(settings, operator);
+        settings = new MockSettings(context);
+
+        callProcessor = new CallProcessor(settings, operator, new Trial(context));
     }
 
     @Test

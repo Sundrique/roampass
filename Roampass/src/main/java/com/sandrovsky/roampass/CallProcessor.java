@@ -10,15 +10,17 @@ import com.google.i18n.phonenumbers.Phonenumber;
 public class CallProcessor {
     private Operator operator;
     private Settings settings;
+    private AbstractTrial trial;
 
-    public CallProcessor(Settings settings, Operator operator) {
+    public CallProcessor(Settings settings, Operator operator, AbstractTrial trial) {
         this.settings = settings;
         this.operator = operator;
+        this.trial = trial;
     }
 
     public String process(String number) {
         String processedNumber = null;
-        if (settings.isOn() && operator.isRoaming() && operator.isSupported()) {
+        if (!trial.isExpired() && settings.isOn() && operator.isRoaming() && operator.isSupported()) {
             Template template = operator.getTemplate();
             processedNumber = template.process(normalize(number));
         }
