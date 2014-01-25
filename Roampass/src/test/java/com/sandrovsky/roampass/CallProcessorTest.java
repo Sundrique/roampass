@@ -3,8 +3,6 @@ package com.sandrovsky.roampass;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
-import com.sandrovsky.roampass.Trial;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,6 +18,7 @@ public class CallProcessorTest {
     TemplatesList templatesList;
     MockOperator operator;
     MockSettings settings;
+    MockTrial trial;
 
     @Before
     public void setUp() {
@@ -35,7 +34,9 @@ public class CallProcessorTest {
 
         settings = new MockSettings(context);
 
-        callProcessor = new CallProcessor(settings, operator, new Trial(context));
+        trial = new MockTrial(context);
+
+        callProcessor = new CallProcessor(settings, operator, trial);
     }
 
     @Test
@@ -43,6 +44,7 @@ public class CallProcessorTest {
         operator.setRoaming(true);
         operator.setSupported(true);
         settings.off();
+        trial.setExpired(false);
 
         assertEquals(null, callProcessor.process("+79123456789"));
     }
@@ -52,6 +54,7 @@ public class CallProcessorTest {
         operator.setRoaming(false);
         operator.setSupported(true);
         settings.on();
+        trial.setExpired(false);
 
         assertEquals(null, callProcessor.process("+79123456789"));
     }
@@ -61,6 +64,17 @@ public class CallProcessorTest {
         operator.setRoaming(true);
         operator.setSupported(false);
         settings.on();
+        trial.setExpired(false);
+
+        assertEquals(null, callProcessor.process("+79123456789"));
+    }
+
+    @Test
+    public void shouldReturnNullIfTrialExpired() {
+        operator.setRoaming(true);
+        operator.setSupported(false);
+        settings.on();
+        trial.setExpired(true);
 
         assertEquals(null, callProcessor.process("+79123456789"));
     }
@@ -70,6 +84,7 @@ public class CallProcessorTest {
         operator.setRoaming(true);
         operator.setSupported(true);
         settings.on();
+        trial.setExpired(false);
 
         assertEquals("*000*79123456789#", callProcessor.process("89123456789"));
     }
