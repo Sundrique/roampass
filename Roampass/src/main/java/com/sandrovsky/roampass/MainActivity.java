@@ -1,17 +1,13 @@
 package com.sandrovsky.roampass;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import org.jraf.android.backport.switchwidget.Switch;
 
@@ -21,16 +17,18 @@ import org.jraf.android.backport.switchwidget.Switch;
 public class MainActivity extends ActionBarActivity {
 
     private Settings settings;
-    private TextView help;
+    private PlaceholderFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fragment = new PlaceholderFragment();
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, fragment)
                     .commit();
         }
 
@@ -51,39 +49,10 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     settings.off();
                 }
-                updateHelp();
+                fragment.updateHelp();
             }
         });
 
         return super.onCreateOptionsMenu(menu);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    private class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-            help = (TextView) rootView.findViewById(R.id.help);
-
-            updateHelp();
-
-            return rootView;
-        }
-    }
-
-    private void updateHelp() {
-        if (settings.isOn()) {
-            help.setText(R.string.description_on);
-        } else {
-            help.setText(R.string.description_off);
-        }
     }
 }
