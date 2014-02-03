@@ -3,7 +3,11 @@
 
     <string name="app_name">Roampass</string>
     <string name="switch_title">Switch</string>
-    <string name="description_on">Когда Roampass включен, все исходящие вызовы в роуминге осуществляютя с помощью технологии обратного вызова. Исходящие вызовы в домашней сети выполняются в обычном режиме.</string>
+    <string name="description_on">Когда Roampass включен, все исходящие звонки в роуминге осуществляются с помощью технологии обратного вызова. Исходящие вызовы в домашней сети выполняются в обычном режиме.</string>
     <string name="description_off">Чтобы воспользоваться технологией обратного вызова для исходящих звонков в роуминге, переведите переключатель в положение On.</string>
+    <string name="expired_title">Пробный период истек</string>
+    <string name="expired_description">Для того чтобы продолжить использовать Roampass, необходимо приобрести полную версию</string>
+    <string name="expired_buy">Купить</string>
+    <string name="expired_quit">Выйти</string>
 
 </resources>

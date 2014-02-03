@@ -1,6 +1,9 @@
 package com.sandrovsky.roampass;
 
-import android.support.v4.app.Fragment;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -33,6 +36,46 @@ public class MainActivity extends ActionBarActivity {
         }
 
         settings = new Settings(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Trial trial = new Trial(this);
+
+        if (trial.isExpired()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.expired_title)
+                    .setMessage(R.string.expired_description)
+                    .setPositiveButton(R.string.expired_buy, new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.sandrovsky.roampass"));
+                            startActivity(intent);
+                            MainActivity.this.finish();
+                        }
+
+                    })
+                    .setNegativeButton(R.string.expired_quit, new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MainActivity.this.finish();
+                        }
+
+                    })
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            MainActivity.this.finish();
+                        }
+
+                    })
+                    .show();
+        }
     }
 
     @Override
