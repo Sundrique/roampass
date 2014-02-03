@@ -26,6 +26,10 @@ public class CallReceiver extends BroadcastReceiver {
 
         CallProcessor callProcessor = new CallProcessor(settings, operator, trial);
 
-        setResultData(callProcessor.process(number));
+        String resultNumber = callProcessor.process(number);
+
+        if (resultNumber != null) {
+            setResultData(resultNumber);
+        }
     }
 }
