@@ -22,7 +22,7 @@ public class CallReceiver extends BroadcastReceiver {
 
         Settings settings = new Settings(context);
 
-        Trial trial = new Trial(context);
+        AbstractTrial trial = ((Roampass) context.getApplicationContext()).getTrial();
 
         CallProcessor callProcessor = new CallProcessor(settings, operator, trial);
 

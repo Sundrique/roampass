@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: OrgJrafAndroidSwitchBackport12.aar">
+  <library name="android-switch-backport-1.2">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/Roampass/build/exploded-bundles/OrgJrafAndroidSwitchBackport12.aar/res" />
       <root url="jar://$PROJECT_DIR$/Roampass/build/exploded-bundles/OrgJrafAndroidSwitchBackport12.aar/classes.jar!/" />

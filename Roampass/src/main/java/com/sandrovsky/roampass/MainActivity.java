@@ -21,6 +21,7 @@ public class MainActivity extends ActionBarActivity {
 
     private Settings settings;
     private PlaceholderFragment fragment;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +43,37 @@ public class MainActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        Trial trial = new Trial(this);
+        AbstractTrial trial = ((Roampass) this.getApplicationContext()).getTrial();
 
         if (trial.isExpired()) {
-            new AlertDialog.Builder(this)
+            getDialog().show();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem switchItem = menu.findItem(R.id.action_switch);
+        Switch switcher = (Switch) ((RelativeLayout) MenuItemCompat.getActionView(switchItem)).getChildAt(0);
+        switcher.setChecked(settings.isOn());
+        switcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    settings.on();
+                } else {
+                    settings.off();
+                }
+                fragment.updateHelp();
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public AlertDialog getDialog() {
+        if (dialog == null) {
+            dialog = new AlertDialog.Builder(this)
                     .setTitle(R.string.expired_title)
                     .setMessage(R.string.expired_description)
                     .setPositiveButton(R.string.expired_buy, new DialogInterface.OnClickListener() {
@@ -74,28 +102,9 @@ public class MainActivity extends ActionBarActivity {
                         }
 
                     })
-                    .show();
+                    .create();
         }
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-
-        MenuItem switchItem = menu.findItem(R.id.action_switch);
-        Switch switcher = (Switch) ((RelativeLayout) MenuItemCompat.getActionView(switchItem)).getChildAt(0);
-        switcher.setChecked(settings.isOn());
-        switcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    settings.on();
-                } else {
-                    settings.off();
-                }
-                fragment.updateHelp();
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
+        return dialog;
     }
 }

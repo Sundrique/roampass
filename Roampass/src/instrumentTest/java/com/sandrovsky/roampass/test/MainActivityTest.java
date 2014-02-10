@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.sandrovsky.roampass.MainActivity;
 import com.sandrovsky.roampass.R;
+import com.sandrovsky.roampass.Roampass;
 import com.sandrovsky.roampass.Settings;
+import com.sandrovsky.roampass.Trial;
 
 import org.jraf.android.backport.switchwidget.Switch;
 
@@ -22,6 +24,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     private Switch switcher;
     private Settings settings;
     private TextView help;
+    private Trial trial;
 
     @TargetApi(Build.VERSION_CODES.FROYO)
     public MainActivityTest() {
@@ -83,11 +86,30 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     @UiThreadTest
     public void testSwitchChangeCauseTextChange() {
-        //String previousText = (String) help.getText();
         assertEquals(help.getText(), activity.getResources().getText(R.string.description_on));
         switcher.performClick();
         assertEquals(help.getText(), activity.getResources().getText(R.string.description_off));
-        //String newText = (String) help.getText();
-        //assertFalse(newText.equals(previousText));
+    }
+
+    public void testAlertIsShowing() {
+        Roampass application = (Roampass) getInstrumentation().getTargetContext().getApplicationContext();
+        application.setTrial(new MockTrial(activity, true));
+
+        activity.finish();
+        setActivity(null);
+        activity = getActivity();
+
+        assertTrue(activity.getDialog().isShowing());
+    }
+
+    public void testAlertIsNotShowing() {
+        Roampass application = (Roampass) getInstrumentation().getTargetContext().getApplicationContext();
+        application.setTrial(new MockTrial(activity, false));
+
+        activity.finish();
+        setActivity(null);
+        activity = getActivity();
+
+        assertFalse(activity.getDialog().isShowing());
     }
 }
