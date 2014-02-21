@@ -10,6 +10,9 @@ public class TemplatesList extends HashMap<String, String> {
     public TemplatesList() {
         super();
 
+        //Android emulator
+        put("310295", "*000*N#");
+
         //RU
         put("25001", "*137*N#");//MTS
         //put("25005", "*147*N#");//ETK
