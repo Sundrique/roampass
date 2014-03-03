@@ -32,9 +32,13 @@ android {
     productFlavors {
         full {
             minSdkVersion 7
+            versionCode 4
+            versionName '1.3'
         }
         trial {
             packageName 'com.sandrovsky.roampass.trial'
+            versionCode 4
+            versionName '1.3'
         }
     }
 }

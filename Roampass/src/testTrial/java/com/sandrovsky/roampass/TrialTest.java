@@ -1,8 +1,12 @@
 package com.sandrovsky.roampass;
 
+import android.app.backup.BackupManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+
+import com.sandrovsky.roampass.Trial;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +15,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 
 /**
  * @author asandrovsky@gmail.com
@@ -20,6 +25,7 @@ public class TrialTest {
 
     private PackageInfo packageInfo;
     private Trial trial;
+    private SharedPreferences preferences;
 
     @Before
     public void setUp() throws Exception {
@@ -33,7 +39,13 @@ public class TrialTest {
 
         when(context.getPackageManager()).thenReturn(packageManager);
 
+        preferences = mock(SharedPreferences.class);
+        when(preferences.edit()).thenReturn(mock(SharedPreferences.Editor.class));
+
+        when(context.getSharedPreferences(Trial.PREFS_TRIAL, Context.MODE_PRIVATE)).thenReturn(preferences);
+
         trial = new Trial(context);
+        trial.setBackupManager(mock(BackupManager.class));
     }
 
     @Test
