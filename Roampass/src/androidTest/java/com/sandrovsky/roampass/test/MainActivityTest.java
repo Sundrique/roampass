@@ -39,8 +39,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         switcher = (Switch) activity.findViewById(R.id.switcher);
         help = (TextView) activity.findViewById(R.id.help);
         settings = new Settings(activity);
-
-        super.setUp();
     }
 
     @Override

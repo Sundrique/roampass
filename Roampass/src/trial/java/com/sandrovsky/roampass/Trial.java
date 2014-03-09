@@ -32,9 +32,9 @@ public class Trial extends AbstractTrial {
                 PackageManager packageManager = context.getPackageManager();
                 firstInstallTime = packageManager.getPackageInfo(context.getPackageName(), 0).firstInstallTime;
             } catch (Exception e) {
-                firstInstallTime =  System.currentTimeMillis();
+                firstInstallTime = System.currentTimeMillis();
             }
-            preferences.edit().putLong(FIRST_INSTALL_TIME, firstInstallTime);
+            preferences.edit().putLong(FIRST_INSTALL_TIME, firstInstallTime).commit();
             getBackupManager().dataChanged();
         }
 

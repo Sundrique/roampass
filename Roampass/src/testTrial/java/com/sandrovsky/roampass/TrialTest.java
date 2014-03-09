@@ -6,16 +6,15 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import com.sandrovsky.roampass.Trial;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.doNothing;
 
 /**
  * @author asandrovsky@gmail.com
@@ -26,6 +25,7 @@ public class TrialTest {
     private PackageInfo packageInfo;
     private Trial trial;
     private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Before
     public void setUp() throws Exception {
@@ -39,8 +39,11 @@ public class TrialTest {
 
         when(context.getPackageManager()).thenReturn(packageManager);
 
+        editor = mock(SharedPreferences.Editor.class);
+        when(editor.putLong(anyString(), anyLong())).thenReturn(editor);
+
         preferences = mock(SharedPreferences.class);
-        when(preferences.edit()).thenReturn(mock(SharedPreferences.Editor.class));
+        when(preferences.edit()).thenReturn(editor);
 
         when(context.getSharedPreferences(Trial.PREFS_TRIAL, Context.MODE_PRIVATE)).thenReturn(preferences);
 
