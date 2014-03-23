@@ -25,13 +25,13 @@ android {
     buildToolsVersion '19.0.0'
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 11
         targetSdkVersion 19
     }
 
     productFlavors {
         full {
-            minSdkVersion 7
+            minSdkVersion 11
             versionCode 5
             versionName '1.4'
         }

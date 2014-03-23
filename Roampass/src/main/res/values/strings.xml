@@ -9,5 +9,6 @@
     <string name="expired_description">Для того чтобы продолжить использовать Roampass, необходимо приобрести полную версию</string>
     <string name="expired_buy">Купить</string>
     <string name="expired_quit">Выйти</string>
+    <string name="share">Поделиться</string>
 
 </resources>

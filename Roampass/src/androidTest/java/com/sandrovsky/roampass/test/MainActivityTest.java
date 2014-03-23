@@ -24,7 +24,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     private Switch switcher;
     private Settings settings;
     private TextView help;
-    private Trial trial;
 
     @TargetApi(Build.VERSION_CODES.FROYO)
     public MainActivityTest() {
