@@ -10,7 +10,6 @@ import com.sandrovsky.roampass.MainActivity;
 import com.sandrovsky.roampass.R;
 import com.sandrovsky.roampass.Roampass;
 import com.sandrovsky.roampass.Settings;
-import com.sandrovsky.roampass.Trial;
 
 import org.jraf.android.backport.switchwidget.Switch;
 
