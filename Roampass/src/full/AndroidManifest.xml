@@ -7,11 +7,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        android:name=".Roampass"
-        android:backupAgent=".BackupAgent">
-        <meta-data
-            android:name="com.google.android.backup.api_key"
-            android:value="AEdPqrEAAAAI2Uw4hBSRuIuMjSk2ThWwWtTKNo2JxrB-XRaIJw"/>
+        android:name=".Roampass">
     </application>
 
 </manifest>
