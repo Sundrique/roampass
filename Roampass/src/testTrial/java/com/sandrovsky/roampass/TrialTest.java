@@ -1,10 +1,12 @@
 package com.sandrovsky.roampass;
 
-import android.app.backup.BackupManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+
+import com.sandrovsky.roampass.AbstractTrial;
+import com.sandrovsky.roampass.Trial;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,8 @@ import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.spy;
 
 /**
  * @author asandrovsky@gmail.com
@@ -47,8 +51,8 @@ public class TrialTest {
 
         when(context.getSharedPreferences(Trial.PREFS_TRIAL, Context.MODE_PRIVATE)).thenReturn(preferences);
 
-        trial = new Trial(context);
-        trial.setBackupManager(mock(BackupManager.class));
+        trial = spy(new Trial(context));
+        doNothing().when(trial).executeCheck();
     }
 
     @Test
@@ -64,4 +68,6 @@ public class TrialTest {
 
         assertTrue(trial.isExpired());
     }
+
+    //TODO test stored install time
 }

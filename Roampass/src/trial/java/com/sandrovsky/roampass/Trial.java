@@ -1,6 +1,5 @@
 package com.sandrovsky.roampass;
 
-import android.app.backup.BackupManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -11,9 +10,10 @@ import android.content.pm.PackageManager;
 public class Trial extends AbstractTrial {
 
     public static String PREFS_TRIAL = "trial";
-    private static String FIRST_INSTALL_TIME = "first_install_time";
+    public static String INSTALL_TIME = "installtime";
+    public static String CHECK_TIME = "checktime";
 
-    private BackupManager backupManager;
+    private static long TEN_DAYS = 10 * 24 * 60 * 60 * 1000;
 
     public Trial(Context context) {
         super(context);
@@ -21,34 +21,27 @@ public class Trial extends AbstractTrial {
 
     @Override
     public boolean isExpired() {
-        return (System.currentTimeMillis() - getFirstInstallTime()) > (10 * 24 * 60 * 60 * 1000); // 10 days
+        return (System.currentTimeMillis() - getFirstInstallTime()) > TEN_DAYS;
     }
 
     public long getFirstInstallTime() {
         SharedPreferences preferences = context.getSharedPreferences(PREFS_TRIAL, Context.MODE_PRIVATE);
-        long firstInstallTime = preferences.getLong(FIRST_INSTALL_TIME, 0);
-        if (firstInstallTime == 0) {
+        long installTime = preferences.getLong(INSTALL_TIME, 0);
+        if (installTime == 0) {
+            executeCheck();
             try {
                 PackageManager packageManager = context.getPackageManager();
-                firstInstallTime = packageManager.getPackageInfo(context.getPackageName(), 0).firstInstallTime;
+                installTime = packageManager.getPackageInfo(context.getPackageName(), 0).firstInstallTime;
             } catch (Exception e) {
-                firstInstallTime = System.currentTimeMillis();
+                installTime = System.currentTimeMillis();
             }
-            preferences.edit().putLong(FIRST_INSTALL_TIME, firstInstallTime).commit();
-            getBackupManager().dataChanged();
         }
 
-        return firstInstallTime;
+        return installTime;
     }
 
-    public BackupManager getBackupManager() {
-        if (backupManager == null) {
-            backupManager = new BackupManager(context);
-        }
-        return backupManager;
-    }
-
-    public void setBackupManager(BackupManager backupManager) {
-        this.backupManager = backupManager;
+    public void executeCheck() {
+        CheckTask checkTask = new CheckTask(context);
+        checkTask.execute();
     }
 }

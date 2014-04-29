@@ -22,7 +22,7 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.0'
+    buildToolsVersion '19.0.3'
 
     defaultConfig {
         minSdkVersion 9
@@ -32,19 +32,19 @@ android {
     productFlavors {
         full {
             minSdkVersion 7
-            versionCode 5
-            versionName '1.4'
+            versionCode 9
+            versionName '1.5.1'
         }
         trial {
             packageName 'com.sandrovsky.roampass.trial'
-            versionCode 5
-            versionName '1.4'
+            versionCode 9
+            versionName '1.5.1'
         }
     }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:19.0.1'
+    compile 'com.android.support:appcompat-v7:19.1.0'
     compile 'com.googlecode.libphonenumber:libphonenumber:5.9'
     compile 'org.jraf:android-switch-backport:1.2'
 
