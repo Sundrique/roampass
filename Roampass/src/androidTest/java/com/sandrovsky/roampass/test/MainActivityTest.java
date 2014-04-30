@@ -1,9 +1,15 @@
 package com.sandrovsky.roampass.test;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.test.UiThreadTest;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.sandrovsky.roampass.MainActivity;
@@ -33,6 +39,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     protected void setUp() throws Exception {
         super.setUp();
 
+        setActivityInitialTouchMode(false);
         activity = getActivity();
         switcher = (Switch) activity.findViewById(R.id.switcher);
         help = (TextView) activity.findViewById(R.id.help);
@@ -107,5 +114,26 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         activity = getActivity();
 
         assertFalse(activity.getDialog().isShowing());
+    }
+
+    public void testClickButtonCausesIntent() throws Exception {
+        Roampass application = (Roampass) getInstrumentation().getTargetContext().getApplicationContext();
+        application.setTrial(new MockTrial(activity, false));
+
+        activity.finish();
+        setActivity(null);
+        activity = getActivity();
+
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_CHOOSER);
+        Instrumentation.ActivityMonitor monitor = getInstrumentation().addMonitor(intentFilter, null, false);
+
+        final Button button = (Button) activity.findViewById(R.id.share);
+        TouchUtils.clickView(this, button);
+
+        Activity chooserActivity = monitor.waitForActivityWithTimeout(1000);
+        assertNotNull(chooserActivity);
+
+        chooserActivity.finish();
+        getInstrumentation().removeMonitor(monitor);
     }
 }

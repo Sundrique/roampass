@@ -10,5 +10,7 @@
     <string name="expired_buy">Купить</string>
     <string name="expired_quit">Выйти</string>
     <string name="share">Поделиться</string>
+    <string name="share_text">Рекомендую \"Roampass\"</string>
+    <string name="share_link">https://play.google.com/store/apps/details?id=com.sandrovsky.roampass</string>
 
 </resources>
