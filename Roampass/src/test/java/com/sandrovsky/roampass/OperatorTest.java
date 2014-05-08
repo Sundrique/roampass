@@ -19,7 +19,7 @@ public class OperatorTest {
     @Before
     public void setUp() {
         telephonyManager = mock(TelephonyManager.class);
-        when(telephonyManager.getNetworkOperator()).thenReturn("10001");
+        when(telephonyManager.getSimOperator()).thenReturn("10001");
 
         templatesList = new TemplatesList();
         templatesList.clear();
