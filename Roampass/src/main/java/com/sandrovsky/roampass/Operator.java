@@ -15,7 +15,7 @@ public class Operator {
     }
 
     public String getId() {
-        return telephonyManager.getNetworkOperator();
+        return telephonyManager.getSimOperator();
     }
 
     public boolean isSupported() {
