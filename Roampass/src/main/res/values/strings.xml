@@ -3,14 +3,14 @@
 
     <string name="app_name">Roampass</string>
     <string name="switch_title">Switch</string>
-    <string name="description_on">Когда Roampass включен, все исходящие звонки в роуминге осуществляются с помощью технологии обратного вызова. Исходящие вызовы в домашней сети выполняются в обычном режиме.</string>
-    <string name="description_off">Чтобы воспользоваться технологией обратного вызова для исходящих звонков в роуминге, переведите переключатель в положение On.</string>
-    <string name="expired_title">Пробный период истек</string>
-    <string name="expired_description">Для того чтобы продолжить использовать Roampass, необходимо приобрести полную версию</string>
-    <string name="expired_buy">Купить</string>
-    <string name="expired_quit">Выйти</string>
-    <string name="share">Поделиться</string>
-    <string name="share_text">Рекомендую \"Roampass\"</string>
+    <string name="description_on">When Roampass is enabled all outgoing calls in roaming are performed via USSD Callback. Calls in home network work as usual.</string>
+    <string name="description_off">Turn the switcher on to start using USSD Callback for outgoing calls.</string>
+    <string name="expired_title">Trial period expired</string>
+    <string name="expired_description">Purchase the full version to continue using \"Roampass\"</string>
+    <string name="expired_buy">Buy</string>
+    <string name="expired_quit">Quit</string>
+    <string name="share">Share</string>
+    <string name="share_text">Take a look at \"Roampass\"</string>
     <string name="share_link">http://sandrovsky.com/roampass/</string>
 
 </resources>
